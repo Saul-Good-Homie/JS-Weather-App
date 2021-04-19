@@ -1,0 +1,98 @@
+/* Styles for all sizes */
+* {
+	border: 1px solid black;
+}
+
+/* Start with Mobile device screens */
+@media (max-width: 480px) {
+	body {
+		background: lightseagreen;
+	}
+	.title {
+		display: flex;
+		justify-content: center;
+		background: lightskyblue;
+	}
+	#main-container {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		justify-content: space-between;
+	}
+
+	.weather-flex {
+		background: lightskyblue;
+		padding: 1rem;
+		flex-grow: 2;
+		display: flex;
+		justify-content: space-evenly;
+	}
+
+	.left-box {
+		flex-grow: 2;
+	}
+
+	.right-box {
+		flex-grow: 2;
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+	}
+
+	.date-box {
+		font-size: 14px;
+	}
+
+	.temp-box {
+		display: flex;
+		height: 50%;
+		justify-content: center;
+		align-items: flex-end;
+	}
+
+	.temp-left {
+		font-size: 72px;
+		margin-right: 4px;
+	}
+
+	.gif-flex {
+		background: lightskyblue;
+		padding: 1rem;
+		flex-grow: 3;
+	}
+
+	.search-flex {
+		background: lightskyblue;
+		padding: 1rem;
+		display: flex;
+		margin-bottom: 1rem;
+	}
+
+	#search-bar {
+		flex-grow: 2;
+		border-radius: 3px;
+		min-height: 40px;
+	}
+
+	#search-btn {
+		border-radius: 3px;
+		min-height: 40px;
+		background: white;
+		font: inherit;
+	}
+}
+
+/* tablets and laptop screens */
+@media (min-width: 481px) {
+	body {
+		background: greenyellow;
+	}
+}
+
+/* Everything larger than laptop */
+@media (min-width: 900px) {
+	body {
+		background: yellow;
+	}
+}
