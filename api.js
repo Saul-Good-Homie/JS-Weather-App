@@ -15,7 +15,7 @@ const bindUI = () => {
 	//searchButton.onclick = newGif;
 };
 
-const todaysDate = () => {
+const todaysDate = (city) => {
 	var today = new Date();
 	var dd = String(today.getDate()).padStart(2, '0');
 	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -23,7 +23,19 @@ const todaysDate = () => {
 
 	today = mm + '/' + dd + '/' + yyyy;
 	const dateBox = document.querySelector('.date-box');
-	dateBox.innerHTML = `Today's Date is: ` + today;
+	dateBox.innerHTML =
+		`Today's Date is: ` +
+		today +
+		' and the current weather in ' +
+		city.toProperCase() +
+		' is:';
+};
+
+const handleErrors = () => {
+	const dateBox = document.querySelector('.date-box');
+	dateBox.innerHTML =
+		'Well this is embarrassing, looks like we caught an error. Please try again.';
+	dateBox.classList.add('errors');
 };
 
 async function newGif(gif) {
@@ -39,14 +51,24 @@ async function newGif(gif) {
 		);
 		const searchData = await response.json();
 		img.src = searchData.data.images.original.url;
+		img.style.display = 'block';
+
+		let header = document.getElementById('gif-title');
+		header.innerHTML =
+			'Enjoy this random gif from the keyword: ' + gif.toProperCase();
 	} catch (error) {
 		console.log('Error: ' + error);
 	}
 }
 
 async function newForecast() {
+	if (search.value == '') {
+		return;
+	}
+
 	let city = search.value;
 	let state = stateDropdown.value;
+
 	console.log('fetching new forecast!');
 	try {
 		const response = await fetch(
@@ -73,10 +95,12 @@ async function newForecast() {
 		currentWeather = currentWeather.toProperCase();
 		rightBox.innerHTML = currentWeather;
 
-		//update weather description
-
+		//update weather units
 		const unitBox = document.querySelector('.temp-right');
 		unitBox.innerHTML = 'F';
+
+		//change h3 for date
+		todaysDate(city);
 
 		//console.log(currentWeather);
 		console.log(searchData);
@@ -85,11 +109,11 @@ async function newForecast() {
 		//load random citygif
 		newGif(city);
 	} catch (error) {
+		handleErrors();
 		console.log('Error: ' + error);
 	}
 }
 
 const init = (() => {
 	bindUI();
-	todaysDate();
 })();
